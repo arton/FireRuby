@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<window id="main" title="FireRuby" width="480" height="300" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/javascript" src="chrome://fireruby/content/main.js"/>
+
+  <textbox id="scrtext" multiline="true" rows="8" cols="80"/>
+  <separator/>
+  <button label="eval" oncommand="callRuby();"/>
+  <separator/>
+  <div id="dispa" style="height:80%;width:90%">
+  </div>
+  <separator/>
+  <description id="ruby_version"></description>
+
+</window>

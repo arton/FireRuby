@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ `uname` = 'Darwin' ]; then
+  firefox=/Applications/Firefox.app/Contents/MacOS/firefox-bin
+  ext='.dylib'
+else
+  firefox=/opt/firefox/firefox-bin
+  ext='.so'
+fi
+
+if [ ! -e $firefox ]; then
+  echo no firefox-bin
+  exit 1
+fi
+rubylib=`ruby -e 'puts $:.map{|x|x.gsub(/\/ruby.+\Z/,"")}[0]'`/libruby$ext
+
+if [ ! -e $rubylib ]; then
+  echo no rubylib
+  exit 1
+fi
+
+apppath=`ruby -e "puts File.dirname(File.expand_path('$0'))"`
+
+if [ $1 ];then
+  script=`ruby -e "puts File.expand_path('$1')"`
+  arg="-script $script"
+else
+  arg=
+fi
+
+$firefox -app $apppath/application.ini -rubylib $rubylib -main $apppath"/chrome/content/main.rb" $arg
+
+
+
+
