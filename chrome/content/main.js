@@ -53,22 +53,32 @@ function callRuby() {
     document.getElementById('dispa').innerHTML = rb_string_value_cstr(vs.address()).readString();
 }
 
-function propSetter(id, args) {
+function getElement(id) {
     var elem_id = id.readString();
-    var elem = document.getElementById(elem_id);
+    if (elem_id === 'window') {
+        return window;
+    } else if (elem_id === 'document') {
+        return document;
+    }
+    return document.getElementById(elem_id);
+}
+
+function propSetter(id, args) {
+    var elem = getElement(id);
     var argv = JSON.parse(args.readString());
     elem[argv.name] = argv.args[0];
 }
 
 function methodCaller(id, args) {
-    var elem_id = id.readString();
-    var elem = document.getElementById(elem_id);
+    var elem = getElement(id);
     var argv = JSON.parse(args.readString());
     var fun = elem[argv.name];
     if (typeof fun === 'function') {
         return ctypes.char.array()(fun.apply(elem, argv.args).toString());
-    } else {
+    } else if (fun) {
         return ctypes.char.array()(fun.toString());
+    } else {
+        return '';
     }
 }
 

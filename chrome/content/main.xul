@@ -10,8 +10,8 @@
   <separator/>
   <button label="eval" oncommand="callRuby();"/>
   <separator/>
-  <div id="dispa" style="height:80%;width:90%">
-  </div>
+  <description id="dispa" style="height:60%;width:90%">
+  </description>
   <separator/>
   <description id="ruby_version"></description>
 
