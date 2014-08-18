@@ -12,7 +12,7 @@ if [ ! -e $firefox ]; then
   echo no firefox-bin
   exit 1
 fi
-rubylib=`ruby -e 'puts $:.map{|x|x.gsub(/\/ruby.+\Z/,"")}[0]'`/libruby$ext
+rubylib=`ruby -e 'puts $:[0].gsub(/\/ruby.+\Z/,"")'`/libruby$ext
 
 if [ ! -e $rubylib ]; then
   echo no rubylib
