@@ -16,6 +16,13 @@ register specified event listener
 *name* : name of the event
 *block*
 
+sample)
+```
+DOM.new('ruby_version').addEventListener('click') do |event|
+  puts("x:#{event.clientX}, y:#{event.clientY}")
+end
+```
+
 ### DOM.window specialized methods
 
 **set_timeout(msec, &block)**

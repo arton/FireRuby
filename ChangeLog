@@ -1,2 +1,7 @@
+2014-08-18 arton <artonx@gmail.com>
+	* README.md: add some APIs
+	* chrome/content/main.js: add callback for events
+	* chrome/content/main.rb: add specialized methods
+
 2014-08-17 arton <artonx@gmail.com>
 	* ChangeLog: initial release
