@@ -1,3 +1,6 @@
+2014-08-31 arton <artonx@gmail.com>
+	* fireruby.bat: initial release
+	
 2014-08-18 arton <artonx@gmail.com>
 	* README.md: add some APIs
 	* chrome/content/main.js: add callback for events
