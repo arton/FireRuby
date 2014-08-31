@@ -1,4 +1,10 @@
 2014-08-31 arton <artonx@gmail.com>
+	* README.md: reformat APIs
+	* chrome/content/main.rb: add aliases
+	* chrome/content/main.js: treat ruby's result more carefully
+	* defaults/preferences/pref.js: set UA as Firefox
+	
+2014-08-31 arton <artonx@gmail.com>
 	* fireruby.bat: initial release
 	
 2014-08-18 arton <artonx@gmail.com>

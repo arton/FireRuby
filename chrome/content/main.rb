@@ -44,12 +44,14 @@ class DOM
     $dom_events[key] = block
     $jsregevent.call(@id, JSON({'name' => name, 'key' => key }))
   end
-  def removeEventListener(name, &block)
+  alias add_event_listener addEventListener
+  def removeEventListener(name)
     # remove any block at this time
     key = "#{@id}#{name}"
     $dom_events.delete(key)
     $jsrmvevent.call(@id, JSON({'name' => name, 'key' => key }))
   end
+  alias remove_event_listener removeEventListener
   def method_missing(name, *args)
     begin
       param = {}

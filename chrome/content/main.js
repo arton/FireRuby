@@ -76,13 +76,20 @@ function methodCaller(id, args) {
     var elem = getElement(id);
     var argv = JSON.parse(args.readString());
     var fun = elem[argv.name];
+    var ret;
     if (typeof fun === 'function') {
-        return ctypes.char.array()(fun.apply(elem, argv.args).toString());
+        ret = fun.apply(elem, argv.args);
     } else if (fun) {
-        return ctypes.char.array()(fun.toString());
-    } else {
-        return '';
+        ret = fun;
     }
+    if (typeof ret === 'undefined') {
+        ret = 'undefined';
+    } else if (ret == null) {
+        ret = 'nil';
+    } else {
+        ret = ret.toString();
+    }
+    return ctypes.char.array()(ret);
 }
 
 function registerEvent(id, args) {
