@@ -51,6 +51,9 @@ class DOM
     $dom_events.delete(key)
     $jsrmvevent.call(@id, JSON({'name' => name, 'key' => key }))
   end
+  def to_s
+    "_XUL::ELEMENT::#{@id}"
+  end
   alias remove_event_listener removeEventListener
   def method_missing(name, *args)
     begin
@@ -58,12 +61,13 @@ class DOM
       param['args'] = args
       if name.to_s[-1, 1] == '='
         param['name'] = name.to_s[0...-1]
-        v = $jssetter.call(@id, JSON(param))
+        v = $jssetter.call(@id, JSON(param)).to_s
       else
         param['name'] = name.to_s
-        v = $jsfun.call(@id, JSON(param))
+        v = $jsfun.call(@id, JSON(param)).to_s
+        return DOM.new($1) if v =~ /\A_XUL::ELEMENT::(.+)\Z/
       end
-      return v.to_s
+      return v
     rescue
       return 'error:' + $!.to_s
     end
@@ -118,6 +122,9 @@ class DOM
   @@window = Window.new('window')
   def self.document()
     @@document
+  end
+  def self.document=(xul)
+    @@document.write(xul)
   end
   def self.window()
     @@window

@@ -1,3 +1,7 @@
+2014-09-03 arton <artonx@gmail.com>
+	* chrome/content/main.rb: can pass XUL object as function argument
+	* chrome/content/main.js: can return XUL object
+
 2014-08-31 arton <artonx@gmail.com>
 	* README.md: reformat APIs
 	* chrome/content/main.rb: add aliases

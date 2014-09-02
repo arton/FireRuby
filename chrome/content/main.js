@@ -52,10 +52,16 @@ function callRuby() {
     document.getElementById('dispa').innerHTML = rb_string_value_cstr(vs.address()).readString();
 }
 
-var firedEvents = {}
+var firedEvents = {};
+var xul_elements = {};
 
 function getElement(id) {
-    var elem_id = id.readString();
+    return getElementFromString(id.readString());
+}
+function getElementFromString(elem_id) {
+    if (xul_elements[elem_id]) {
+        return xul_elements[elem_id];
+    }
     if (elem_id === 'window') {
         return window;
     } else if (elem_id === 'document') {
@@ -78,6 +84,12 @@ function methodCaller(id, args) {
     var fun = elem[argv.name];
     var ret;
     if (typeof fun === 'function') {
+        for (var i = 0; i < argv.args.length; i++) {
+            if (typeof argv.args[i] === 'string'
+                && argv.args[i].indexOf('_XUL::ELEMENT::') == 0) {
+                argv.args[i] = getElementFromString(argv.args[i].substring(15));
+            }
+        }
         ret = fun.apply(elem, argv.args);
     } else if (fun) {
         ret = fun;
@@ -87,7 +99,15 @@ function methodCaller(id, args) {
     } else if (ret == null) {
         ret = 'nil';
     } else {
-        ret = ret.toString();
+        if (typeof ret === 'object' && ret.toString() === '[object XULElement]') {
+            if (ret.id == '') {
+                ret.id = '#' + Math.random().toString();
+                xul_elements[ret.id] = ret;
+            }
+            ret = '_XUL::ELEMENT::' + ret.id;
+        } else {
+            ret = ret.toString();
+        }
     }
     return ctypes.char.array()(ret);
 }
