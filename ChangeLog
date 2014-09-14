@@ -1,3 +1,7 @@
+2014-09-15 arton <artonx@gmail.com>
+	* fireruby.bat: support -d for jsconsole, initial foreground
+	* fireruby: support -d for jsconsole, initial foreground
+	
 2014-09-03 arton <artonx@gmail.com>
 	* chrome/content/main.rb: can pass XUL object as function argument
 	* chrome/content/main.js: can return XUL object

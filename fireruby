@@ -21,6 +21,16 @@ fi
 
 apppath=`ruby -e "puts File.dirname(File.expand_path('$0'))"`
 
+DEBUG=
+while getopts d OPT
+  do
+    case $OPT in
+      "d" ) DEBUG=" -jsconsole" ;;
+    esac
+done
+
+shift `expr $OPTIND - 1`
+
 if [ $1 ];then
   script=`ruby -e "puts File.expand_path('$1')"`
   arg="-script $script"
@@ -28,8 +38,4 @@ else
   arg=
 fi
 
-$firefox -app $apppath/application.ini -rubylib $rubylib -main $apppath"/chrome/content/main.rb" $arg
-
-
-
-
+$firefox -app $apppath/application.ini -rubylib $rubylib -main $apppath"/chrome/content/main.rb" $arg $DEBUG -foreground

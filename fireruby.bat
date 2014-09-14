@@ -30,6 +30,10 @@ if ARGV.size > 0
 else
   arg = ''
 end  
+if $DEBUG || $VERBOSE
+  arg << ' -jsconsole'
+end
+arg << ' -foreground'
 
 system "\"#{to_dosish(firefox)}\" /app \"#{apppath}\\application.ini\" /rubylib \"#{rubylib}\" /win32 true /main \"#{apppath}\\chrome\\content\\main.rb\" #{arg}"
 
